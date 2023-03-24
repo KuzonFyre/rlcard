@@ -1,0 +1,152 @@
+{
+  "items": [
+    {
+      "name": "daylight",
+      "quantity": 2,
+      "description": "play before selection phase no bite turned or mist form this round",
+      "type": "keep Down",
+      "id": 1
+    },
+        {
+      "name": "hallowed ground",
+      "quantity": 2,
+      "description": "players must discard a face down card keeping it face down. Not a turned card",
+      "type": "instant",
+        "id": 2
+    },
+    {
+      "name": "cured",
+      "quantity": 2,
+      "description": "discard turned og vampire role card face up keep face up",
+        "type": "instant",
+        "id": 3
+    },
+    {"name":  "wound",
+    "quantity": 7,
+      "description": "take a wound",
+      "type": "instant",
+      "id": 4},
+    {"name":  "bite",
+    "quantity": 7,
+      "description": "take a bite, players that have been bitten are vulnerable to being turned",
+      "type": "instant",
+      "id": 5},
+    {
+"name": "bait",
+"quantity": 2,
+"description": "PLAY AFTER SELECTION PHASE ALL VAMPIRES must play a bite on you",
+"type": "keep down",
+"id": 6
+},
+{
+"name": "garlic",
+"quantity": 5,
+"description": "prevent a bite played on you this term",
+"type": "instant",
+"id": 7
+},
+{
+"name": "mist form",
+"quantity": 3,
+"description": "prevent a stake placed on you",
+"type": "keep down",
+"id": 8
+},
+{
+"name": "confession",
+"quantity": 3,
+"description": "discard after selection phase to make a player play their cards face up",
+"type": "keep down",
+"id": 9
+},
+{
+"name": "vervain",
+"quantity": 3,
+"description": "prevent a mind control or a bite played on you or play this card after the play phase to prevent all bites or force discard all mind controls in play",
+"type": "keep down",
+"id": 10
+},
+{
+"name": "cursed",
+"quantity": 2,
+"description": "you cannot be healed while you have this card can be removed with vervain",
+"type": "keep up",
+   "id": 11
+},
+{
+"name": "mob",
+"quantity": 2,
+"description": "PLAY AFTER SELECTION PHASE ALL PLAYER MUST DISCARD ALL BUT ONE CARD FROM THEIR HAND",
+"type": "keep down",
+"id": 12
+},
+{
+"name": "terror",
+"quantity": 2,
+"description": "you cannot use defense cards this round",
+"type": "instant",
+"id": 13
+},
+{
+"name": "suspicion",
+"quantity": 15,
+"description": "If you ever have three suspicion cards discard all three and flip any one of your face down cards face up this includes your role card.",
+"type": "keep up",
+"id": 14
+},
+{
+"name": "turned",
+"quantity": 8,
+"description": "If you had a bite token before this round you are not a vampire",
+"type": "keep down",
+"id": 15
+},
+{
+"name": "mind control",
+"quantity": 3,
+"description": "You must pick and play a bite or wound on every round if possible. This card can be removed with vervain",
+"type": "keep down",
+"id": 16
+},
+{
+"name": "cross",
+"quantity": 3,
+"description": "prevent a bite played on you discard after use",
+"type": "keep down",
+"id": 17
+},
+{
+"name": "revolver",
+"quantity": 5,
+"description": "you must pick one player to wound",
+"type": "instant",
+"id": 18
+},
+{
+"name": "peace",
+"quantity": 2,
+"description": "all players remove one wound or bite token",
+"type": "instant",
+"id": 19
+},
+{
+"name": "torch",
+"quantity": 3,
+"description": "you must discard a face down card keeping it face down it cannot be a turned card",
+"type": "instant",
+"id": 20
+},
+    {    "name": "dodge",    "description": "prevent a wound played on you this turn",    "type": "instant",    "quantity": 5, "id": 20  },
+    {    "name": "stake",    "description": "Take one wound token. if you are a vampire with at least 3 wounds you die",    "type": "instant",    "quantity": 5,
+    "id": 21  },
+    {    "name": "crossbow",     "description": "you must pick one player to stake",    "type": "instant",    "quantity": 3, "id": 22},
+    {  "id":23,  "name": "crossbow",     "description": "you must pick one player to stake",    "type": "instant",    "quantity": 3  },
+    { "id":24,    "name": "bible",     "description": "prevent a bit or wound played on you discard after use",    "type": "keep down",    "quantity": 3  },
+    { "id":25,    "name": "grave robber",      "description": "take and play and card from the discard",    "type": "instant",    "quantity": 3  },
+    { "id":26,    "name": "holy water",     "description": "if you are a vampire you must reveal your turned card or your role card",    "type": "instant",    "quantity": 1  },
+    { "id":27,    "name": "feed",      "description": "discard anytime to give one of your wound tokens to another player. this card cannot kill a player",    "type": "keep down",    "quantity": 2  },
+    { "id":28,    "name": "padding",     "description": "prevent a wound token played on you discard after use",    "type": "keep down",    "quantity": 3  },
+    { "id":29,    "name": "heal",      "description": "remove a bible or wound token",    "type": "instant",    "quantity": 5  }
+
+  ]
+}
