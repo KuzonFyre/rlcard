@@ -63,18 +63,13 @@ class BiteEnv(Env):
         '''
         cards = state['state']
         print(cards)
-        my_cards = cards[0]
-        dealer_cards = cards[1]
-
-        my_score = get_score(my_cards)
-        dealer_score = get_score(dealer_cards)
-        obs = np.array([my_score, dealer_score])
-
+        extracted_state = {}
         legal_actions = OrderedDict({i: None for i in range(len(self.actions))})
-        extracted_state = {'obs': obs, 'legal_actions': legal_actions}
+
         extracted_state['raw_obs'] = state
         extracted_state['raw_legal_actions'] = [a for a in self.actions]
-        # extracted_state['action_record'] = self.action_recorder
+        extracted_state['action_record'] = self.action_recorder
+        extracted_state['hand'] = state['hand']
         return extracted_state
 
     def get_payoffs(self):
@@ -95,7 +90,7 @@ class BiteEnv(Env):
 
         return np.array(payoffs)
 
-    def _decode_action(self, action_id):
+    def _decode_action(self, action):
         ''' Decode the action for applying to the game
 
         Args:
@@ -104,4 +99,4 @@ class BiteEnv(Env):
         Returns:
             action (str): action for the game
         '''
-        return self.actions[action_id]
+        return action

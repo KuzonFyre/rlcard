@@ -1,32 +1,20 @@
-from rlcard.games.bite import game
-import random
-import gymnasium as gym
-import rlcard
-from rlcard.agents import RandomAgent
-from enum import Enum
+
 
 # class BiteEnv(rlcard.envs.Env):
 
 
 class Round:
-# for player in b.players:
-#     print("Player Options: ")
-#     player.cycle_hand(b.draw())
-#     for card in player.hand:
-#         print(card)
-#         b.processFactory(player, random.choice(b.players), card)
+    def __init__(self):
+        self.roundQueue = []
 
-# for player in b.players:
-#     print(player, end="\n\n")
-
-    def proceed_round(self, player, played, card):
+    def process_round(self, player, played, card):
             if card.type == "instant":
                 self.processInstant(player, played, card)
             elif card.type == "keep down":
                 self.processKeepDown(player, played, card)
             elif card.type == "keep up":
                 self.processKeepUp(player, played, card)
-            self.deck.discards.append(card)
+
 
     def processKeepDown(self, player, played, card):
         print()

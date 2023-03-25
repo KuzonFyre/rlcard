@@ -127,7 +127,7 @@ class LimitHoldemGame:
             self.history.append((r, b, r_c, d, p, ps, rn))
 
         # Then we proceed to the next round
-        self.game_pointer = self.round.proceed_round(self.players, action)
+        self.game_pointer = self.round.process_round(self.players, action, )
 
         # Save the current raise num to history
         self.history_raise_nums[self.round_counter] = self.round.have_raised

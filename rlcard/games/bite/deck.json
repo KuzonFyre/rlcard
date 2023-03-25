@@ -22,7 +22,7 @@
         "id": 3
     },
     {"name":  "wound",
-    "quantity": 7,
+    "quantity": 70,
       "description": "take a wound",
       "type": "instant",
       "id": 4},

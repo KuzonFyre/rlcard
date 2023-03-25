@@ -15,6 +15,9 @@ random_agent = RandomAgent(env.num_actions)
 env.set_agents([
     human_agent,
     random_agent,
+random_agent,
+random_agent,
+random_agent,
 ])
 
 print(">> Bite human agent")
