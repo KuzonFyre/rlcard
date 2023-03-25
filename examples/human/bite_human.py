@@ -39,15 +39,14 @@ while (True):
             final_state.append(trajectories[i][-1])
             state.append(final_state[i]['raw_obs'])
 
-        action_record.append(final_state[i]['action_record'])
-        for i in range(1, len(action_record) + 1):
-            _action_list.insert(0, action_record[-i])
+        # action_record.append(final_state[i]['action_record'])
+        # for i in range(1, len(action_record) + 1):
+        #     _action_list.insert(0, action_record[-i])
 
-        for pair in _action_list[0]:
-            print('>> Player', pair[0], 'chooses', pair[1])
+        # for pair in _action_list[0]:
+        #     print('>> Player', pair[0], 'chooses', str(pair[1]))
 
     # Let's take a look at what the agent card is
-    print('===============   Dealer hand   ===============')
     print_card(state[0]['state'][1])
 
     for i in range(num_players):

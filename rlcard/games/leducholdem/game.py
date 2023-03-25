@@ -62,6 +62,7 @@ class LeducholdemGame(Game):
 
         # Initialize a judger class which will decide who wins in the end
         self.judger = Judger(self.np_random)
+        self.judger = Judger(self.np_random)
 
         # Prepare for the first round
         for i in range(self.num_players):

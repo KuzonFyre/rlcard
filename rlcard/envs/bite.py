@@ -81,12 +81,8 @@ class BiteEnv(Env):
         payoffs = []
 
         for i in range(self.num_players):
-            if self.game.winner['player' + str(i)] == 2:
-                payoffs.append(1)  # Dealer bust or player get higher score than dealer
-            elif self.game.winner['player' + str(i)] == 1:
-                payoffs.append(0)  # Dealer and player tie
-            else:
-                payoffs.append(-1)  # Player bust or Dealer get higher score than player
+            self.game.get_payoffs(i)
+            payoffs.append(self.game.get_payoffs(i))
 
         return np.array(payoffs)
 

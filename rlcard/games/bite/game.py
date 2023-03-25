@@ -112,6 +112,12 @@ class Game:
                 return index
             else:
                 print("Index out of range")
+    def get_payoffs(self,playerIndex):
+        if self.players[playerIndex].damage > 3:
+            return -1
+        else:
+            return 1
+
     def is_over(self):
         ''' Check if the game is over
 
