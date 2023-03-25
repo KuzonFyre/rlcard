@@ -46,33 +46,41 @@ class Round:
         if card.name == "dodge":
             played.faceDownCards.append(card)
         elif card.name == "bite":
-            if played.faceDownCards.forEach(lambda x: x.name == "cross"):
-                played.faceDownCards.remove("cross")
-            elif played.faceDownCards.forEach(lambda x: x.name == "garlic"):
-                played.faceDownCards.remove("garlic")
-            else:
-                played.isBitten = True
+            for x in played.faceDownCards:
+                if x.name == "garlic":
+                    played.faceDownCards.remove(x)
+                    break
+                elif x.name == "cross":
+                    played.faceDownCards.remove(x)
+                    break
+                else:
+                    played.isBitten = True
         elif card.name == "wound":
-            if played.faceDownCards.forEach(lambda x: x.name == "dodge"):
-                played.faceDownCards.remove("dodge")
-            elif played.faceDownCards.forEach(lambda x: x.name == "padding"):
-                played.faceDownCards.remove("padding")
-            elif played.faceDownCards.forEach(lambda x: x.name == "bible"):
-                played.faceDownCards.remove("bible")
-            else:
-                played.damage += 1
+            for x in played.faceDownCards:
+                if x.name == "padding":
+                    played.faceDownCards.remove(x)
+                    break
+                elif x.name == "bible":
+                    played.faceDownCards.remove(x)
+                    break
+                elif x.name == "cross":
+                    played.faceDownCards.remove(x)
+                    break
+                else:
+                    played.damage += 1
         elif card.name == "Stake":
-            if played.faceDownCards.forEach(lambda x: x.name == "mist form"):
-                played.faceDownCards.remove("mist form")
-            else:
-                played.damage += 1
+            for x in played.faceDownCards:
+                if x.name == "mist form":
+                    played.faceDownCards.remove(x)
+                else:
+                    played.damage += 1
         elif card.name == "turned":
             if played.isBitten:
                 player.role = "vampire"
         elif card.name == "hallowed ground":
-            if player.faceDownCards != []:
+            if player.faceDownCards:
                 player.faceDownCards.pop()
-            if played.faceDownCards != []:
+            if played.faceDownCards:
                 played.faceDownCards.pop()
         elif card.name == "cured":
             if played.role == "vampire":
@@ -97,5 +105,7 @@ class Round:
             played.suspicion += 1
             if played.suspicion >= 3:
                 played.roleRevealed = True
-        if played.facedownCards.forEach(lambda x: x.name == "dodge"):
-            played.faceDownCards.remove("dodge")
+
+        for x in played.faceDownCards:
+            if x.name == "dodge":
+                played.faceDownCards.remove(x)
