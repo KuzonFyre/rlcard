@@ -39,9 +39,7 @@ class Player:
         state['faceUpCards'] = self.faceUpCards
         state['biteTokens'] = self.biteTokens
         state['hand'] = hand
-        state['hand2'] = self.hand2
         state['legal_actions'] = legal_actions
-        print(state['legal_actions'])
         self.hand = hand
         self.legal_actions = legal_actions
         return state

@@ -56,8 +56,6 @@ class BiteEnv(Env):
         Returns:
             observation (list): combine the player's score and dealer's observable score for observation
         '''
-        # cards = state['state']
-        # print(cards)
         extracted_state = {}
         self.legal_actions = OrderedDict({self.actions.index(a): None for a in state['legal_actions']})
         extracted_state['legal_actions'] = self.legal_actions

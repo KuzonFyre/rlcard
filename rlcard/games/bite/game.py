@@ -17,10 +17,8 @@ class Game:
         '''
         self.deck = Deck()
         self.round = Round()
-        # print(self.deck)
         self.players = [Player("vampire", 0), Player("human", 1), Player("human", 2),Player("vampire", 3), Player("human", 4)]
         self.deck.shuffle()
-        # self.deck.deal(self.players)
         self.current_player = 0
         return self.get_state(self.current_player), self.current_player
     def configure(self, game_config):
