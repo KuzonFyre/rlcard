@@ -29,15 +29,10 @@ class BiteEnv(Env):
 
         # self.default_game_config = DEFAULT_GAME_CONFIG
         self.num_types = 28
-        self.actions = set()
-        set_of_3 = [(card, player) for card in range(28) for player in range(self.num_players)]
-        for action in set_of_3:
-            self.actions.add(action)
 
-        # Possible actions for the set of 2 cards
-        set_of_2 = [(card, player) for card in range(28) for player in range(self.num_players)]
-        for action in set_of_2:
-            self.actions.add(action)
+        self.actions = []
+        for i in range(self.num_types * self.num_players + 1):
+            self.actions.append(i)
         self.state_shape = [[20] for _ in range(self.num_players)]
         self.action_shape = [[self.num_types] for _ in range(self.num_players)]
 
@@ -48,7 +43,7 @@ class BiteEnv(Env):
             encoded_action_list (list): return encoded legal action list (from str to int)
         '''
         encoded_action_list = []
-        for i in range(len(self.actions)):
+        for i in range(len(self.action_shape)):
             encoded_action_list.append(i)
         return encoded_action_list
 
@@ -61,15 +56,15 @@ class BiteEnv(Env):
         Returns:
             observation (list): combine the player's score and dealer's observable score for observation
         '''
-        cards = state['state']
-        print(cards)
+        # cards = state['state']
+        # print(cards)
         extracted_state = {}
-        legal_actions = OrderedDict({i: None for i in range(len(self.actions))})
-
+        self.legal_actions = OrderedDict({self.actions.index(a): None for a in state['legal_actions']})
+        extracted_state['legal_actions'] = self.legal_actions
+        extracted_state['obs'] = np.zeros(20)
         extracted_state['raw_obs'] = state
-        extracted_state['raw_legal_actions'] = [a for a in self.actions]
+        extracted_state['raw_legal_actions'] = [a for a in state['legal_actions']]
         extracted_state['action_record'] = self.action_recorder
-        extracted_state['hand'] = state['hand']
         return extracted_state
 
     def get_payoffs(self):
@@ -93,6 +88,7 @@ class BiteEnv(Env):
             action id (int): action id
 
         Returns:
-            action (str): action for the game
+            action
         '''
+
         return action

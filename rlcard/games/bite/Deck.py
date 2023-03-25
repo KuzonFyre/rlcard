@@ -20,16 +20,20 @@ class Deck:
         random.shuffle(self.deck)
 
     def reset(self):
-        self.deck.extend(self.discards)
+        self.deck = self.discards
         self.shuffle()
         self.discards = []
 
-    def deal(self):
+    def draw(self, num=1):
         if len(self.deck) == 0:
             self.reset()
-            return self.deck.pop()
-        else:
-            return self.deck.pop()
+        li = []
+        for i in range(num):
+            if len(self.deck) == 0:
+                print(self.discards)
+                self.reset()
+            li.append(self.deck.pop())
+        return li
 
     def __getitem__(self, item):
         return self.deck[item]

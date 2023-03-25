@@ -34,9 +34,9 @@ class Game:
         Returns:
             number_of_actions (int): there are only two actions (hit and stand)
         '''
-        return 140
+        return 141
     def draw_Three(self):
-        return [self.deck.deal(), self.deck.deal(), self.deck.deal()]
+        return self.deck.draw(3)
 
     def get_state(self, player_id):
         ''' Return player's state
@@ -53,30 +53,36 @@ class Game:
                 Although key 'state' have duplicated information with key 'player hand' and 'dealer hand', I couldn't remove it because of other codes
                 To remove it, we need to change dqn agent too in my opinion
                 '''
-        state = {}
-        actions = set()
-        set_of_3 = [(card, player) for card in range(28) for player in range(5)]
-        for action in set_of_3:
-            actions.add(action)
+        self.draws = self.draw_Three()
 
-        # Possible actions for the set of 2 cards
-        set_of_2 = [(card, player) for card in range(28) for player in range(5)]
-        for action in set_of_2:
-            actions.add(action)
-        state['actions'] = actions
-        state['hand'] = self.draw_Three()
-        # hand = [card.get_index() for card in self.players[player_id].hand]
+        actions = []
+        for draw in self.draws:
+            for j in range(1,6):
+                actions.append(draw.id*j)
 
-        stat = self.players[player_id].get_state()
-
-        state['state'] = stat
+        state = self.players[player_id].get_state(actions,self.draws)
+        state['current_player'] = player_id
 
         return state
 
-    def step(self, action):
-        card, played = action
-        self.round.roundQueue.append((card, self.players[self.current_player], self.players[played]))
 
+    def get_legal_actions(self):
+        return self.players[self.current_player].get_legal_actions()
+
+    def step(self, action):
+        card = None
+        playedIdx = None
+        for draw in self.draws:
+            if draw.id % action == 0 and (draw.id // action) <= 5:
+                playedIdx = (draw.id // action) -1
+                card = draw
+            elif action % draw.id == 0 and (action // draw.id) <= 5:
+                playedIdx = (action // draw.id) -1
+                card = draw
+            else:
+                self.deck.discards.append(draw)
+        played = self.players[playedIdx]
+        self.round.roundQueue.append((card, self.players[self.current_player], played))
         if self.current_player == 4:
             for (card,player, played) in self.round.roundQueue:
                 self.round.process_round(player, played,card)

@@ -52,6 +52,7 @@ class LeducholdemEnv(Env):
         extracted_state = {}
 
         legal_actions = OrderedDict({self.actions.index(a): None for a in state['legal_actions']})
+        print(legal_actions)
         extracted_state['legal_actions'] = legal_actions
 
         public_card = state['public_card']
@@ -87,6 +88,7 @@ class LeducholdemEnv(Env):
         Returns:
             action (str): action for the game
         '''
+        print('action_id: ', action_id)
         legal_actions = self.game.get_legal_actions()
         if self.actions[action_id] not in legal_actions:
             if 'check' in legal_actions:

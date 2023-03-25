@@ -20,13 +20,14 @@ class Player:
         self.faceUpCards = [] # public
         # TODO: I could see the number of biteTokens potentially being relevant info to state. If a player has 2 bite tokens, the other players might be more inclined to play a turned card on them
         self.biteTokens = 0 # public
-        self.hand1 = [] # private
+        self.hand = [] # private
         self.hand2 = [] # private
+        self.legal_actions = [] # public
 
     def cycle_hand(self, new_hand):
         self.hand = new_hand
 
-    def get_state(self):
+    def get_state(self,legal_actions,hand):
         state = {}
         state['damage'] = self.damage
         state['role'] = self.role if self.roleRevealed else None
@@ -37,10 +38,17 @@ class Player:
         state['faceDownCards'] = self.faceDownCards
         state['faceUpCards'] = self.faceUpCards
         state['biteTokens'] = self.biteTokens
-        state['hand1'] = self.hand1
+        state['hand'] = hand
         state['hand2'] = self.hand2
+        state['legal_actions'] = legal_actions
+        print(state['legal_actions'])
+        self.hand = hand
+        self.legal_actions = legal_actions
         return state
-    
+
+    def get_legal_actions(self):
+        return self.legal_actions
+
     def get_player_id(self):
         return self.ID
 

@@ -32,7 +32,6 @@ class Env(object):
         # TODO support game configurations for all the games
         supported_envs = ['blackjack', 'leduc-holdem', 'limit-holdem', 'no-limit-holdem','bite']
         if self.name in supported_envs:
-            print("hello")
             _game_config = self.default_game_config.copy()
             for key in config:
                 if key in _game_config:
@@ -142,8 +141,6 @@ class Env(object):
         while not self.is_over():
             # Agent plays
             if not is_training:
-                print(self.agents)
-                print(player_id)
                 action, _ = self.agents[player_id].eval_step(state)
             else:
                 action = self.agents[player_id].step(state)

@@ -22,6 +22,8 @@ class Round:
     def processKeepUp(self, player, played, card):
         print()
 
+    def get_legal_actions(self):
+        print()
     def processInstant(self, player, played, card):
         if card.name == "bite":
             played.isBitten = True
