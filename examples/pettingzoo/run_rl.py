@@ -27,7 +27,7 @@ env_name_to_env_func = {
     "leduc-holdem": leduc_holdem_v4,
     "limit-holdem": texas_holdem_v4,
     "no-limit-holdem": texas_holdem_no_limit_v6,
-    "gin-rummy": gin_rummy_v4,
+    "gin-rummy": gin_rummy_v4
 }
 
 
@@ -114,6 +114,7 @@ if __name__ == '__main__':
             'no-limit-holdem',
             'uno',
             'gin-rummy',
+            'bite'
         ],
     )
     parser.add_argument(

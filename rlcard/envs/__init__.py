@@ -4,6 +4,11 @@ from rlcard.envs.env import Env
 from rlcard.envs.registration import register, make
 
 register(
+    env_id='bite',
+    entry_point='rlcard.envs.bite:BiteEnv',
+)
+
+register(
     env_id='blackjack',
     entry_point='rlcard.envs.blackjack:BlackjackEnv',
 )
@@ -47,3 +52,6 @@ register(
     env_id='bridge',
     entry_point='rlcard.envs.bridge:BridgeEnv',
 )
+
+
+
