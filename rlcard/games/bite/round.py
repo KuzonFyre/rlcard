@@ -14,58 +14,88 @@ class Round:
                 self.processKeepDown(player, played, card)
             elif card.type == "keep up":
                 self.processKeepUp(player, played, card)
+            if played.role == "human" and played.damage >= 3:
+                if player.role == "vampire":
+                    player.kills = player.kills + 1
+                else:
+                    player.kills = player.kills - 1
+            if played.role == "vampire" and played.damage >= 3:
+                if player.role == "human":
+                    player.kills = player.kills + 1
+                else:
+                    player.kills = player.kills - 1
+                played.isAlive = False
+
 
 
     def processKeepDown(self, player, played, card):
-        print()
-
+        if card.name == "padding":
+            played.faceDownCards.append(card)
+        elif card.name == "bible":
+            played.faceDownCards.append(card)
+        elif card.name == "cross":
+            played.faceDownCards.append(card)
+        elif card.name == "mist form":
+            played.faceDownCards.append(card)
     def processKeepUp(self, player, played, card):
         print()
-
-    def get_legal_actions(self):
-        print()
+    #
+    # def get_legal_actions(self):
+    #     print()
     def processInstant(self, player, played, card):
-        if card.name == "bite":
-            played.isBitten = True
+        if card.name == "dodge":
+            played.faceDownCards.append(card)
+        elif card.name == "bite":
+            if played.faceDownCards.forEach(lambda x: x.name == "cross"):
+                played.faceDownCards.remove("cross")
+            elif played.faceDownCards.forEach(lambda x: x.name == "garlic"):
+                played.faceDownCards.remove("garlic")
+            else:
+                played.isBitten = True
         elif card.name == "wound":
-            played.damage += 1
-        elif card.name == "revolver":
-            print()
-            # toWound = self.players[self.getIndex("Who do you want to play this on?", 0, len(self.players) - 1)]
-            # toWound.damage += 1
+            if played.faceDownCards.forEach(lambda x: x.name == "dodge"):
+                played.faceDownCards.remove("dodge")
+            elif played.faceDownCards.forEach(lambda x: x.name == "padding"):
+                played.faceDownCards.remove("padding")
+            elif played.faceDownCards.forEach(lambda x: x.name == "bible"):
+                played.faceDownCards.remove("bible")
+            else:
+                played.damage += 1
         elif card.name == "Stake":
-            # TODO: Account for order of play
-            played.damage += 1
-        elif card.name == "Turn":
+            if played.faceDownCards.forEach(lambda x: x.name == "mist form"):
+                played.faceDownCards.remove("mist form")
+            else:
+                played.damage += 1
+        elif card.name == "turned":
             if played.isBitten:
                 player.role = "vampire"
         elif card.name == "hallowed ground":
-            print()
-            # for p in self.players:
-            #     self.discardFaceDown(p)
+            if player.faceDownCards != []:
+                player.faceDownCards.pop()
+            if played.faceDownCards != []:
+                played.faceDownCards.pop()
         elif card.name == "cured":
             if played.role == "vampire":
                 # TODO: Add played to a public roles list
                 played.role = "human"
-        elif card.name == "garlic":
-            print()
-    #         TODO: Bite Prevention
-        elif card.name == "terror":
-            print()
-    #         TODO: No defense
-        elif card.name == "peace":
-            print()
-            # for p in self.players:
-            #     choice = self.getIndex(f"Choose 0 to remove a bite token and 1 to remove a wound token. You have {p.biteTokens} bite tokens and {p.damage} wound tokens.", 0, 1)
-            #     if choice == 0 and p.biteTokens > 0:
-            #         p.biteTokens -= 1
-            #     elif choice == 1 and p.damage > 0:
-            #         p.damage -= 1
+        elif card.name == "cursed":
+            played.isCursed = True
+        elif card.name == "heal":
+            if not played.isCursed:
+                played.damage -= 1
+    # #         TODO: Bite Prevention
+        elif card.name == "holy water":
+            if played.role == "vampire":
+                played.roleRevealed = True
         elif card.name == "torch":
-            # self.discardFaceDown(played)
-            print()
-
-
-    def discardFaceDown(self,player):
-            if player.faceDownCards:
-                self.getIndex("What face down card do you want to discard?", 0, len(player.faceDownCards)-1)
+            if played.faceDownCards != []:
+                played.faceDownCards.pop()
+        elif card.name == "peace":
+            played.damage -= 1
+            player.damage -= 1
+        elif card.name == "suspicion":
+            played.suspicion += 1
+            if played.suspicion >= 3:
+                played.roleRevealed = True
+        if played.facedownCards.forEach(lambda x: x.name == "dodge"):
+            played.faceDownCards.remove("dodge")

@@ -59,7 +59,30 @@ class BiteEnv(Env):
         extracted_state = {}
         self.legal_actions = OrderedDict({self.actions.index(a): None for a in state['legal_actions']})
         extracted_state['legal_actions'] = self.legal_actions
-        extracted_state['obs'] = np.zeros(20)
+        obs = np.zeros(20)
+        obs[0] = int(state['damage'])
+        obs[1] = int(state['isBitten'])
+        obs[2] = int(state['isCursed'])
+        # obs[3] = int(len(state['faceDownCards']))
+        # obs[4] = int(len(state['faceUpCards']))
+        obs[3] = int(state['biteTokens'])
+        if state['role'] == 'vampire':
+            obs[4] = 1
+        elif state['role'] == 'human':
+            obs[4] = 2
+        i=0
+        for j in range(0,5):
+            if j != state['current_player']:
+                obs[5+i] = int(state['player_'+ str(j) + "_damage"])
+                obs[6+i] = int(state['player_'+ str(j) + "_biteTokens"])
+                obs[7+i] = int(state['player_'+ str(j) + "_isBitten"])
+                if i+8 == 20:
+                    break
+                obs[8+i] = int(state['player_'+ str(j) + "_isCursed"])
+                # obs[11+i] = int(len(state['player_'+ str(j) + "_faceDownCards"]))
+                # obs[12+i] = int(len(state['player_'+ str(j) + "_faceUpCards"]))
+                i+=4
+        extracted_state['obs'] = obs
         extracted_state['raw_obs'] = state
         extracted_state['raw_legal_actions'] = [a for a in state['legal_actions']]
         extracted_state['action_record'] = self.action_recorder
@@ -74,7 +97,6 @@ class BiteEnv(Env):
         payoffs = []
 
         for i in range(self.num_players):
-            self.game.get_payoffs(i)
             payoffs.append(self.game.get_payoffs(i))
 
         return np.array(payoffs)

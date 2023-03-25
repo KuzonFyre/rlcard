@@ -59,6 +59,14 @@ class Game:
                 actions.append(draw.id*j)
 
         state = self.players[player_id].get_state(actions,self.draws)
+        for i in range(5):
+            if i != player_id:
+                state['player_' + str(i) + '_damage'] = self.players[i].damage
+                state['player_' + str(i) + '_biteTokens'] = self.players[i].biteTokens
+                state['player_' + str(i) + '_isBitten'] = self.players[i].isBitten
+                state['player_' + str(i) + '_isCursed'] = self.players[i].isCursed
+                # if self.players[player_id].role == "vampire" and self.players[i].role=="vampire":
+                #     state['player_' + str(i) + 'role'] = self.players[i].role
         state['current_player'] = player_id
 
         return state
@@ -117,10 +125,12 @@ class Game:
             else:
                 print("Index out of range")
     def get_payoffs(self,playerIndex):
-        if self.players[playerIndex].damage > 3:
-            return -1
-        else:
+
+        if self.players[playerIndex].role == "vampire" and self.players[playerIndex].isAlive:
+            return 1 + self.players[playerIndex].kills
+        elif self.players[playerIndex].role == "human" and self.players[playerIndex].isAlive:
             return 1
+
 
     def is_over(self):
         ''' Check if the game is over
@@ -129,6 +139,6 @@ class Game:
             (bool): True if the game is over, False otherwise
         '''
         for player in self.players:
-            if player.damage == 4:
-                return True
-        return False
+
+            if not player.isAlive: return True
+            return False

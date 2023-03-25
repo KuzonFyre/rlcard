@@ -30,7 +30,6 @@ class Deck:
         li = []
         for i in range(num):
             if len(self.deck) == 0:
-                print(self.discards)
                 self.reset()
             li.append(self.deck.pop())
         return li

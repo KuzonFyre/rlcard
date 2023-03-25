@@ -23,6 +23,7 @@ class Player:
         self.hand = [] # private
         self.hand2 = [] # private
         self.legal_actions = [] # public
+        self.kills = 0 # public
 
     def cycle_hand(self, new_hand):
         self.hand = new_hand
@@ -35,10 +36,9 @@ class Player:
         state['isAlive'] = self.isAlive
         state['isCursed'] = self.isCursed
         state['suspicion'] = self.suspicion
-        state['faceDownCards'] = self.faceDownCards
-        state['faceUpCards'] = self.faceUpCards
+        # state['faceDownCards'] = self.faceDownCards
+        # state['faceUpCards'] = self.faceUpCards
         state['biteTokens'] = self.biteTokens
-        state['hand'] = hand
         state['legal_actions'] = legal_actions
         self.hand = hand
         self.legal_actions = legal_actions

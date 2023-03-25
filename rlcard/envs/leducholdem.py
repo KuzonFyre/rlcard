@@ -64,7 +64,7 @@ class LeducholdemEnv(Env):
         obs[state['my_chips']+6] = 1
         obs[sum(state['all_chips'])-state['my_chips']+21] = 1
         extracted_state['obs'] = obs
-
+        print(extracted_state['obs'])
         extracted_state['raw_obs'] = state
         extracted_state['raw_legal_actions'] = [a for a in state['legal_actions']]
         extracted_state['action_record'] = self.action_recorder
