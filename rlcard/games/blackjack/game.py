@@ -12,6 +12,7 @@ class BlackjackGame:
         '''
         self.allow_step_back = allow_step_back
         self.np_random = np.random.RandomState()
+        self.name = 'blackjack'
 
     def configure(self, game_config):
         ''' Specifiy some game specific parameters, such as number of players

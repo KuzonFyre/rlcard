@@ -1,12 +1,13 @@
 import random
-from Card import Card
+from rlcard.games.bite import Card
 import json
-
+import os
+import rlcard
 
 class Deck:
     def __init__(self):
         self.discards = []
-        with open("deck.json") as f:
+        with open(os.path.join(rlcard.__path__[0], 'games/bite/deck.json'), 'r') as f:
             data = json.load(f)
             self.deck = []
             for item in data["items"]:

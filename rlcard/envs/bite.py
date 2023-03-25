@@ -7,12 +7,13 @@ import numpy as np
 from collections import OrderedDict
 
 from rlcard.envs import Env
-from rlcard.games.blackjack import Game
+from rlcard.games.bite import Game
 
 DEFAULT_GAME_CONFIG = {
-        'game_num_players': 5,
-        'game_num_types': 28
-        }
+    'game_num_players': 5,
+    'game_num_types': 28
+}
+
 
 class BiteEnv(Env):
     ''' Bite Environment
@@ -21,10 +22,13 @@ class BiteEnv(Env):
     def __init__(self, config):
         ''' Initialize the Bite environment
         '''
-        self.name = 'bite'
-        self.default_game_config = DEFAULT_GAME_CONFIG
         self.game = Game()
+        self.default_game_config = DEFAULT_GAME_CONFIG
+        self.name = 'bite'
         super().__init__(config)
+
+        # self.default_game_config = DEFAULT_GAME_CONFIG
+        self.num_types = 28
         self.actions = set()
         set_of_3 = [(card, player) for card in range(28) for player in range(self.num_players)]
         for action in set_of_3:
@@ -58,6 +62,7 @@ class BiteEnv(Env):
             observation (list): combine the player's score and dealer's observable score for observation
         '''
         cards = state['state']
+        print(cards)
         my_cards = cards[0]
         dealer_cards = cards[1]
 
@@ -69,7 +74,7 @@ class BiteEnv(Env):
         extracted_state = {'obs': obs, 'legal_actions': legal_actions}
         extracted_state['raw_obs'] = state
         extracted_state['raw_legal_actions'] = [a for a in self.actions]
-        extracted_state['action_record'] = self.action_recorder
+        # extracted_state['action_record'] = self.action_recorder
         return extracted_state
 
     def get_payoffs(self):
@@ -90,7 +95,6 @@ class BiteEnv(Env):
 
         return np.array(payoffs)
 
-
     def _decode_action(self, action_id):
         ''' Decode the action for applying to the game
 
@@ -101,4 +105,3 @@ class BiteEnv(Env):
             action (str): action for the game
         '''
         return self.actions[action_id]
-

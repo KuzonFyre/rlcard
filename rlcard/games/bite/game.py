@@ -1,81 +1,83 @@
 import random
 # TODO, identify order to which to process played cards. For Example, defensive cards and cards like Stake
 # player damage and stake queue?
-from Deck import Deck
-from Player import Player
+from rlcard.games.bite import Deck
+from rlcard.games.bite import Player
 
 
-class Bite:
-    def __init__(self):
+class Game:
+
+
+    def init_game(self):
+        ''' Initialize the game
+
+        Returns:
+            (int): the current player's id
+        '''
         self.deck = Deck()
         # print(self.deck)
         self.players = [Player("vampire", 0), Player("human", 1), Player("human", 2)]
+        self.deck.shuffle()
+        # self.deck.deal(self.players)
+        self.current_player = 0
+        return self.get_state(self.current_player), self.current_player
+    def configure(self, game_config):
+        ''' Specifiy some game specific parameters, such as number of players
+        '''
+        self.num_players = game_config['game_num_players']
+    @staticmethod
+    def get_num_actions():
+        ''' Return the number of applicable actions
 
-    def processFactory(self, player, played, card):
-        if card.type == "instant":
-            self.processInstant(player, played, card)
-        elif card.type == "keep down":
-            self.processKeepDown(player, played, card)
-        elif card.type == "keep up":
-            self.processKeepUp(player, played, card)
-        self.deck.discards.append(card)
-
-    def processKeepDown(self, player, played, card):
-        print()
-
-    def processKeepUp(self, player, played, card):
-        print()
-
-    def processInstant(self, player, played, card):
-        if card.name == "bite":
-            played.isBitten = True
-        elif card.name == "wound":
-            played.damage += 1
-        elif card.name == "revolver":
-            toWound = self.players[self.getIndex("Who do you want to play this on?", 0, len(self.players) - 1)]
-            toWound.damage += 1
-        elif card.name == "Stake":
-            # TODO: Account for order of play
-            played.damage += 1
-        elif card.name == "Turn":
-            if played.isBitten:
-                player.role = "vampire"
-        elif card.name == "hallowed ground":
-            for p in self.players:
-                self.discardFaceDown(p)
-        elif card.name == "cured":
-            if played.role == "vampire":
-                # TODO: Add played to a public roles list
-                played.role = "human"
-        elif card.name == "garlic":
-            print()
-    #         TODO: Bite Prevention
-        elif card.name == "terror":
-            print()
-    #         TODO: No defense
-        elif card.name == "peace":
-            for p in self.players:
-                choice = self.getIndex(f"Choose 0 to remove a bite token and 1 to remove a wound token. You have {p.biteTokens} bite tokens and {p.damage} wound tokens.", 0, 1)
-                if choice == 0 and p.biteTokens > 0:
-                    p.biteTokens -= 1
-                elif choice == 1 and p.damage > 0:
-                    p.damage -= 1
-        elif card.name == "torch":
-            self.discardFaceDown(played)
-
-
-    def discardFaceDown(self,player):
-            if player.faceDownCards:
-                self.getIndex("What face down card do you want to discard?", 0, len(player.faceDownCards)-1)
-
-    def checkPlayerStatus(self, player):
-        if player.role == "vampire" and player.damage >= 4:
-            player.isAlive = False
-        elif player.role == "human" and player.damage >= 3:
-            player.isAlive = False
-
+        Returns:
+            number_of_actions (int): there are only two actions (hit and stand)
+        '''
+        return 140
     def draw(self):
         return [self.deck[0], self.deck[0], self.deck[0]]
+
+    def get_state(self, player_id):
+        ''' Return player's state
+
+        Args:
+            player_id (int): player id
+
+        Returns:
+            state (dict): corresponding player's state
+        '''
+        '''
+                before change state only have two keys (action, state)
+                but now have more than 4 keys (action, state, player0 hand, player1 hand, ... , dealer hand)
+                Although key 'state' have duplicated information with key 'player hand' and 'dealer hand', I couldn't remove it because of other codes
+                To remove it, we need to change dqn agent too in my opinion
+                '''
+        state = {}
+        actions = set()
+        set_of_3 = [(card, player) for card in range(28) for player in range(5)]
+        for action in set_of_3:
+            actions.add(action)
+
+        # Possible actions for the set of 2 cards
+        set_of_2 = [(card, player) for card in range(28) for player in range(5)]
+        for action in set_of_2:
+            actions.add(action)
+        state['actions'] = actions
+
+        # hand = [card.get_index() for card in self.players[player_id].hand]
+
+        stat = self.players[player_id].get_state()
+
+        state['state'] = stat
+
+        return state
+
+    def get_num_players(self):
+        ''' Return the number of players in blackjack
+
+        Returns:
+            number_of_player (int): blackjack only have 1 player
+        '''
+        return self.num_players
 
     def getIndex(self,prompt, lo, hi):
         while True:

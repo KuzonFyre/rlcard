@@ -1,15 +1,14 @@
-from Bite import Bite
+from rlcard.games.bite import game
 import random
 import gymnasium as gym
 import rlcard
 from rlcard.agents import RandomAgent
 from enum import Enum
 
-b = Bite()
 # class BiteEnv(rlcard.envs.Env):
 
 
-class BiteRound:
+class Round:
 # for player in b.players:
 #     print("Player Options: ")
 #     player.cycle_hand(b.draw())

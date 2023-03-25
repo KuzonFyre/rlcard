@@ -32,6 +32,7 @@ class Env(object):
         # TODO support game configurations for all the games
         supported_envs = ['blackjack', 'leduc-holdem', 'limit-holdem', 'no-limit-holdem','bite']
         if self.name in supported_envs:
+            print("hello")
             _game_config = self.default_game_config.copy()
             for key in config:
                 if key in _game_config:

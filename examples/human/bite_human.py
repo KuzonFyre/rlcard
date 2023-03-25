@@ -1,9 +1,9 @@
-''' A toy example of self playing for Blackjack
+''' A toy example of self playing for Bite
 '''
 
 import rlcard
 from rlcard.agents import RandomAgent as RandomAgent
-from rlcard.agents import BlackjackHumanAgent as HumanAgent
+from rlcard.agents import BiteHumanAgent as HumanAgent
 from rlcard.utils.utils import print_card
 
 # Make environment
